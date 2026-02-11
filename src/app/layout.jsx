@@ -1,3 +1,5 @@
+
+
 import { Inter } from "next/font/google";
 import { UserInfo } from "../components/UserInfo";
 
@@ -11,6 +13,7 @@ export const metadata = {
   title: "Didit",
   description: "A social app like Reddit or Hacker News",
 };
+export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }) {
   return (
