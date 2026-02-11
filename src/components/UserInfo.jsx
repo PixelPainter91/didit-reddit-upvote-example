@@ -1,10 +1,16 @@
-import auth from "../app/middleware";
+import { auth } from "@/auth";
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
 export async function UserInfo() {
-  const session = await auth();
-
+  let session = null;
+  
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error("Auth error:", error);
+   
+  }
   return (
     <div>
       {session ? (

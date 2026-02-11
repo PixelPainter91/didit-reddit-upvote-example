@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import auth from "../app/middleware";
+import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { VoteButtons } from "./VoteButtons";
 
@@ -44,7 +44,13 @@ async function handleVote(userId, postId, newVote) {
 }
 
 export async function Vote({ postId, votes }) {
-  const session = await auth();
+  let session = null;
+  
+  try {
+    session = await auth();
+  } catch (error) {
+    console.error("Auth error in Vote:", error);
+  }
   const existingVote = await getExistingVote(session?.user?.id, postId);
 
   async function upvote() {
